@@ -4,6 +4,9 @@ kind: Kustomization
 
 resources:
   - shared-configmap.yaml
+  - service-account.yaml
+  - secret-provider-class.yaml
+  - ghcr-credentials-secret.yaml
   - portal-backoffice-deployment.yaml
   - portal-backoffice-service.yaml
 

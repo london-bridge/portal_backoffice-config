@@ -6,3 +6,29 @@ metadata:
 data:
   APP_ENV: base
   TZ: America/Sao_Paulo
+  AUTH_SERVICE_URL: https://auth.londonbridge.pro
+  AUTH_REALM: banking-control
+  # Server Configuration
+  PORT: "3002"
+  # Demo Mode
+  DEMO_MODE: "false"
+  # JWT Configuration
+  JWT_ALGORITHM: HS256
+  JWT_EXPIRES_IN: 7d
+  # Session Configuration
+  SESSION_MAX_AGE: "86400000"
+  # Logging
+  LOG_LEVEL: debug
+  LOG_FORMAT: dev
+  # IAM Configuration
+  AUTH_MODE: logto
+  LOGTO_APP_ID: 129f300135a8a3aceb4f
+  LOGTO_M2M_APP_ID: a8db00743a24cf38a8db
+  LOGTO_MANAGEMENT_API_RESOURCE: https://default.logto.app/api
+  # Keycloak Configuration
+  KEYCLOAK_REALM: lbpay
+  KEYCLOAK_CLIENT_ID: backoffice-portal
+  # IAM Sync Configuration
+  IAM_WRITE_THROUGH: "true"
+  # Cerbos Configuration
+  CERBOS_ADMIN_USERNAME: londonpay

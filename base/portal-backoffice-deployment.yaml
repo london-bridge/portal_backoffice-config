@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/component: backend
     spec:
       imagePullSecrets:
-        - name: ghcr-secret
+        - name: ghcr-credentials
       containers:
         - name: portal-backoffice
           image: ghcr.io/london-bridge/bo-portal/backend:latest

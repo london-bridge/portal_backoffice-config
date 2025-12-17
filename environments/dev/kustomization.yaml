@@ -24,16 +24,51 @@ patches:
       - op: replace
         path: /data/APP_ENV
         value: development
-      # TODO: Adicionar patches específicos quando o código fonte estiver disponível
+      - op: add
+        path: /data/APP_URL
+        value: http://localhost:3002
+      - op: add
+        path: /data/LOGTO_ENDPOINT
+        value: http://localhost:3301
+      - op: add
+        path: /data/LOGTO_CALLBACK_URL
+        value: http://localhost:3002/api/auth/callback
+      - op: add
+        path: /data/KEYCLOAK_URL
+        value: http://localhost:8080
+      - op: add
+        path: /data/REDIS_URL
+        value: redis://localhost:6380
+      - op: add
+        path: /data/CERBOS_URL
+        value: http://localhost:3592
 
-  # Deployment patches
+  # SecretProviderClass patch for dev environment
+  - target:
+      kind: SecretProviderClass
+      name: portal-backoffice-secrets-class
+    patch: |-
+      - op: add
+        path: /spec/parameters/region
+        value: us-east-1
+
+  # ServiceAccount patch for dev environment
+  - target:
+      kind: ServiceAccount
+      name: portal-backoffice-sa
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/eks.amazonaws.com~1role-arn
+        value: arn:aws:iam::333449929724:role/secrets-manager-portal-backoffice
+
+  # Deployment patches for dev environment
   - target:
       kind: Deployment
       name: portal-backoffice
     patch: |-
       - op: replace
-        path: /spec/template/spec/imagePullSecrets/0/name
-        value: regcred
+        path: /spec/template/spec/containers/0/env/0/value
+        value: development
       - op: add
         path: /spec/template/metadata/labels/dev.londonbridge.service
         value: portal-backoffice
