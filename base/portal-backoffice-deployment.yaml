@@ -40,8 +40,6 @@ spec:
                   name: shared-config
                   key: TZ
           envFrom:
-            - secretRef:
-                name: portal-backoffice-secret
             - configMapRef:
                 name: shared-config
           ports:
