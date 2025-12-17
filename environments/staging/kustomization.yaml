@@ -8,14 +8,12 @@ resources:
 namespace: portal-backoffice
 
 replicas:
-  # TODO: Ajustar quando o código fonte estiver disponível
-  # - name: portal-backoffice
-  #   count: 2
+  - name: portal-backoffice
+    count: 2
 
 images:
-  # TODO: Ajustar quando o código fonte estiver disponível
-  # - name: ghcr.io/london-bridge/portal_backoffice
-  #   newTag: staging-latest
+  - name: ghcr.io/london-bridge/bo-portal/backend
+    newTag: latest
 
 patches:
   # ConfigMap patch for environment-specific values
@@ -28,15 +26,15 @@ patches:
         value: staging
       # TODO: Adicionar patches específicos quando o código fonte estiver disponível
 
-  # TODO: Adicionar patches de deployment quando o código fonte estiver disponível
-  # - target:
-  #     kind: Deployment
-  #     name: portal-backoffice
-  #   patch: |-
-  #     - op: add
-  #       path: /spec/template/spec/nodeSelector
-  #       value:
-  #         role: staging
-  #     - op: replace
-  #       path: /spec/template/spec/imagePullSecrets/0/name
-  #       value: regcred
+  # Deployment patches
+  - target:
+      kind: Deployment
+      name: portal-backoffice
+    patch: |-
+      - op: add
+        path: /spec/template/spec/nodeSelector
+        value:
+          role: staging
+      - op: replace
+        path: /spec/template/spec/imagePullSecrets/0/name
+        value: regcred

@@ -1,0 +1,72 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal-backoffice
+  labels:
+    app.kubernetes.io/name: portal-backoffice
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: portal-backoffice
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: portal-backoffice
+        app.kubernetes.io/component: backend
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: portal-backoffice
+          image: ghcr.io/london-bridge/bo-portal/backend:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: BACKEND_PORT
+              value: "3002"
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: shared-config
+                  key: TZ
+          envFrom:
+            - secretRef:
+                name: portal-backoffice-secret
+            - configMapRef:
+                name: shared-config
+          ports:
+            - name: http
+              containerPort: 3002
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3002
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3002
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

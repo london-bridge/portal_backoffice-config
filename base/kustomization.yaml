@@ -4,9 +4,8 @@ kind: Kustomization
 
 resources:
   - shared-configmap.yaml
-  # TODO: Adicionar deployment e service quando o código fonte estiver disponível
-  # - portal-backoffice-deployment.yaml
-  # - portal-backoffice-service.yaml
+  - portal-backoffice-deployment.yaml
+  - portal-backoffice-service.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: portal-backoffice
