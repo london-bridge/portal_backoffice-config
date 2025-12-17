@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shared-config
+data:
+  APP_ENV: base
+  APP_HOST: "0.0.0.0"
+  APP_PORT: "8080"
+  # TODO: Adicionar variáveis de ambiente específicas quando o código fonte estiver disponível
