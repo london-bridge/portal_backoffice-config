@@ -13,7 +13,7 @@ replicas:
 
 images:
   - name: ghcr.io/london-bridge/bo-portal/backend
-    newTag: latest
+    newTag: ff3888d3
 
 patches:
   # ConfigMap patch for environment-specific values
