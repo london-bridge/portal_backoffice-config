@@ -43,15 +43,6 @@ patches:
         path: /data/CERBOS_URL
         value: http://localhost:3592
 
-  # SecretProviderClass patch for dev environment
-  - target:
-      kind: SecretProviderClass
-      name: portal-backoffice-secrets-class
-    patch: |-
-      - op: add
-        path: /spec/parameters/region
-        value: us-east-1
-
   # ServiceAccount patch for dev environment
   - target:
       kind: ServiceAccount
