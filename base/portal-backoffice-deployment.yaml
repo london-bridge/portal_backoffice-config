@@ -48,6 +48,10 @@ spec:
           ports:
             - name: http
               containerPort: 3002
+          volumeMounts:
+            - name: postgres-cert
+              mountPath: /app/certs
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /api/health
@@ -71,3 +75,10 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
+      volumes:
+        - name: postgres-cert
+          configMap:
+            name: rds-ca-cert
+            items:
+              - key: global-bundle.pem
+                path: global-bundle.pem

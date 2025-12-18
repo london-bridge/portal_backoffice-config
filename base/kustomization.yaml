@@ -6,6 +6,7 @@ resources:
   - shared-configmap.yaml
   - service-account.yaml
   - ghcr-credentials-secret.yaml
+  - rds-ca-cert-configmap.yaml
   - portal-backoffice-secret.yaml
   - portal-backoffice-deployment.yaml
   - portal-backoffice-service.yaml
