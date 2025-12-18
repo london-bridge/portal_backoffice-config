@@ -8,6 +8,7 @@ resources:
   - secret-provider-class.yaml
   - ghcr-credentials-secret.yaml
   - portal-backoffice-external-secret.yaml
+  - portal-backoffice-secret.yaml
   - portal-backoffice-deployment.yaml
   - portal-backoffice-service.yaml
 
