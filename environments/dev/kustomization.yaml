@@ -41,7 +41,7 @@ patches:
         value: redis://localhost:6380
       - op: replace
         path: /data/CERBOS_URL
-        value: http://cerbos-service.cerbos.svc.cluster.local:3592
+        value: cerbos-service.cerbos.svc.cluster.local:3592
       - op: add
         path: /data/CERBOS_ADMIN_USERNAME
         value: cerbos
