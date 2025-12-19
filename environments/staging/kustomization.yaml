@@ -24,7 +24,15 @@ patches:
       - op: replace
         path: /data/APP_ENV
         value: staging
-      # TODO: Adicionar patches específicos quando o código fonte estiver disponível
+      - op: add
+        path: /data/CERBOS_URL
+        value: https://cerbos.dev.lbpay.com.br/
+      - op: add
+        path: /data/CERBOS_ADMIN_USERNAME
+        value: cerbos
+      - op: add
+        path: /data/CERBOS_ADMIN_PASSWORD
+        value: cerbosAdmin
 
   # Deployment patches
   - target:
