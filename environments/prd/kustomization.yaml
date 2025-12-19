@@ -1,0 +1,74 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+namespace: portal-backoffice
+
+replicas:
+  - name: portal-backoffice
+    count: 1
+
+images:
+  - name: ghcr.io/london-bridge/bo-portal/backend
+    newTag: latest
+
+patches:
+  # ConfigMap patch for environment-specific values
+  - target:
+      kind: ConfigMap
+      name: shared-config
+    patch: |-
+      - op: replace
+        path: /data/APP_ENV
+        value: development
+      - op: add
+        path: /data/APP_URL
+        value: http://localhost:3002
+      - op: add
+        path: /data/LOGTO_ENDPOINT
+        value: http://localhost:3301
+      - op: add
+        path: /data/LOGTO_CALLBACK_URL
+        value: http://localhost:3002/api/auth/callback
+      - op: add
+        path: /data/KEYCLOAK_URL
+        value: http://localhost:8080
+      - op: add
+        path: /data/REDIS_URL
+        value: redis://localhost:6380
+      - op: add
+        path: /data/CERBOS_URL
+        value: http://localhost:3592
+
+  # ServiceAccount patch for dev environment
+  - target:
+      kind: ServiceAccount
+      name: portal-backoffice-sa
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/eks.amazonaws.com~1role-arn
+        value: arn:aws:iam::333449929724:role/secrets-manager-portal-backoffice
+
+  # Deployment patches for dev environment
+  - target:
+      kind: Deployment
+      name: portal-backoffice
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: development
+      - op: add
+        path: /spec/template/metadata/labels/dev.londonbridge.service
+        value: portal-backoffice
+
+  # Ingress patch for dev environment (certificate ARN)
+  - target:
+      kind: Ingress
+      name: portal-backoffice
+    patch: |-
+      - op: add
+        path: /metadata/annotations/alb.ingress.kubernetes.io~1certificate-arn
+        value: arn:aws:acm:us-east-1:333449929724:certificate/2c82cebe-42b6-47e2-acb8-2c5552580390

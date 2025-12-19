@@ -1,0 +1,18 @@
+{
+  "Comment": "Criar registro DNS público para portal-backoffice.dev.lbpay.com.br",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "portal-backoffice.dev.lbpay.com.br",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "k8s-portalba-portalba-012c728d9c-1274898016.us-east-1.elb.amazonaws.com"
+          }
+        ]
+      }
+    }
+  ]
+}
