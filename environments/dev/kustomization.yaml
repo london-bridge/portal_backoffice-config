@@ -63,3 +63,12 @@ patches:
       - op: add
         path: /spec/template/metadata/labels/dev.londonbridge.service
         value: portal-backoffice
+
+  # Ingress patch for dev environment (certificate ARN)
+  - target:
+      kind: Ingress
+      name: portal-backoffice
+    patch: |-
+      - op: add
+        path: /metadata/annotations/alb.ingress.kubernetes.io~1certificate-arn
+        value: arn:aws:acm:us-east-1:333449929724:certificate/2c82cebe-42b6-47e2-acb8-2c5552580390

@@ -10,6 +10,7 @@ resources:
   - portal-backoffice-secret.yaml
   - portal-backoffice-deployment.yaml
   - portal-backoffice-service.yaml
+  - portal-backoffice-ingress.yaml
 
 commonLabels:
   app.kubernetes.io/part-of: portal-backoffice
